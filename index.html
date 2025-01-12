@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>John's Personal Finance Tracker</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <header>
+    <h1>Personal Finance Tracker</h1>
+  </header>
+
+  <main>
+    <section id="transaction-form">
+      <h2>Add Transaction</h2>
+      <form id="form">
+        <label for="type">Type:</label>
+        <select id="type">
+          <option value="income">Income</option>
+          <option value="expense">Expense</option>
+        </select>
+
+        <label for="category">Category:</label>
+        <input type="text" id="category" placeholder="e.g., Salary, Groceries">
+
+        <label for="amount">Amount:</label>
+        <input type="number" id="amount" placeholder="e.g., 100">
+
+        <button type="submit">Add Transaction</button>
+      </form>
+    </section>
+
+    <section id="transactions">
+      <h2>Transaction History</h2>
+      <ul id="transaction-list">
+        <!-- Transactions will be dynamically added here -->
+      </ul>
+    </section>
+
+    <section id="summary">
+      <h2>Summary</h2>
+      <p><strong>Total Income:</strong> <span id="total-income">#0</span></p>
+      <p><strong>Total Expenses:</strong> <span id="total-expenses">#0</span></p>
+      <p><strong>Balance:</strong> <span id="balance">#0</span></p>
+    </section>
+
+    <section id="chart">
+      <h2>Monthly Overview</h2>
+      <canvas id="financeChart"></canvas>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2024 Personal Finance Tracker</p>
+  </footer>
+
+  <script>
+    // JavaScript to manage transactions and update the chart
+    document.addEventListener('DOMContentLoaded', () => {
+      const form = document.getElementById('form');
+      const transactionList = document.getElementById('transaction-list');
+      const totalIncomeElement = document.getElementById('total-income');
+      const totalExpensesElement = document.getElementById('total-expenses');
+      const balanceElement = document.getElementById('balance');
+
+      let transactions = [];
+
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+
+        const type = document.getElementById('type').value;
+        const category = document.getElementById('category').value;
+        const amount = parseFloat(document.getElementById('amount').value);
+
+        if (category && !isNaN(amount) && amount > 0) {
+          const transaction = { type, category, amount };
+          transactions.push(transaction);
+          updateUI();
+        }
+      });
+
+      function updateUI() {
+        // Update transaction list
+        transactionList.innerHTML = '';
+        transactions.forEach((transaction, index) => {
+          const listItem = document.createElement('li');
+          listItem.textContent = `#{transaction.type.toUpperCase()} - #{transaction.category}: $#{transaction.amount}`;
+          listItem.classList.add(transaction.type);
+          transactionList.appendChild(listItem);
+        });
+
+        // Calculate totals
+        const totalIncome = transactions
+          .filter(t => t.type === 'income')
+          .reduce((acc, t) => acc + t.amount, 0);
+
+        const totalExpenses = transactions
+          .filter(t => t.type === 'expense')
+          .reduce((acc, t) => acc + t.amount, 0);
+
+        const balance = totalIncome - totalExpenses;
+
+        totalIncomeElement.textContent = `$${totalIncome.toFixed(2)}`;
+        totalExpensesElement.textContent = `$${totalExpenses.toFixed(2)}`;
+        balanceElement.textContent = `$${balance.toFixed(2)}`;
+
+        updateChart(totalIncome, totalExpenses);
+      }
+
+      // Chart.js setup
+      const ctx = document.getElementById('financeChart').getContext('2d');
+      const financeChart = new Chart(ctx, {
+        type: 'pie',
+        data: {
+          labels: ['Income', 'Expenses'],
+          datasets: [{
+            data: [0, 0],
+            backgroundColor: ['#28a745', '#dc3545'],
+          }],
+        },
+        options: {
+          responsive: true,
+          plugins: {
+            legend: {
+              position: 'top',
+            },
+          },
+        },
+      });
+
+      function updateChart(income, expenses) {
+        financeChart.data.datasets[0].data = [income, expenses];
+        financeChart.update();
+      }
+    });
+  </script>
+</body>
+</html>

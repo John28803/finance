@@ -1,0 +1,150 @@
+/* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+    background-color: #f4f4f9;
+    color: #333;
+  }
+  
+  header {
+    background: #007bff;
+    color: #fff;
+    padding: 10px 0;
+    text-align: center;
+  }
+  
+  header h1 {
+    margin: 0;
+    font-size: 2rem;
+  }
+  
+  main {
+    padding: 20px;
+  }
+  
+  /* Form Section */
+  #transaction-form {
+    background: #fff;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  #transaction-form h2 {
+    margin-bottom: 15px;
+    font-size: 1.5rem;
+  }
+  
+  form label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+  }
+  
+  form input, form select, form button {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1rem;
+  }
+  
+  form button {
+    background: #007bff;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+  
+  form button:hover {
+    background: #0056b3;
+  }
+  
+  /* Transactions Section */
+  #transactions {
+    background: #fff;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  #transactions h2 {
+    margin-bottom: 15px;
+  }
+  
+  #transaction-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  #transaction-list li {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  #transaction-list li:last-child {
+    border-bottom: none;
+  }
+  
+  #transaction-list li.income {
+    color: #28a745;
+  }
+  
+  #transaction-list li.expense {
+    color: #dc3545;
+  }
+  
+  /* Summary Section */
+  #summary {
+    background: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  #summary h2 {
+    margin-bottom: 15px;
+  }
+  
+  #summary p {
+    font-size: 1.2rem;
+    margin: 10px 0;
+  }
+  
+  #summary span {
+    font-weight: bold;
+  }
+  
+  /* Chart Section */
+  #chart {
+    background: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  #chart h2 {
+    margin-bottom: 15px;
+  }
+  
+  canvas {
+    max-width: 100%;
+    height: auto;
+  }
+  
+  /* Footer */
+  footer {
+    text-align: center;
+    background: #007bff;
+    color: #fff;
+    padding: 10px 0;
+    margin-top: 20px;
+  }
+  
